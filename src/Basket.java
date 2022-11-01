@@ -1,12 +1,10 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
-public class Basket {
+public class Basket implements Serializable {
 
     protected int[] arrPrice;
     protected String[] arrNameProduct;
@@ -55,6 +53,18 @@ public class Basket {
             Basket basket = new Basket(price, product);
             basket.count = count;
             return basket;
+        }
+    }
+
+    public void saveBin(File file) throws IOException {
+        try (ObjectOutputStream out = new ObjectOutputStream((new FileOutputStream(file)))) {
+            out.writeObject(this);
+        }
+    }
+
+    public static Basket loadFromBinFile(File file) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))){
+            return (Basket) in.readObject();
         }
     }
 

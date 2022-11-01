@@ -1,10 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
         String[] products = {"Хлеб", "Яблоки", "Молоко", "Сыр", "Мука"};
@@ -35,8 +36,8 @@ public class Main {
             basket.addToCart(productNumber - 1, productCount);
         }
 
-        basket.saveTxt(new File("basket.txt"));
-        Basket basketNew = Basket.loadFromTxtFile(new File("basket.txt"));
+        basket.saveBin(new File("basket.bin"));
+        Basket basketNew = Basket.loadFromBinFile(new File("basket.bin"));
 
         basketNew.printCart();
     }
